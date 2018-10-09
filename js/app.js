@@ -72,7 +72,7 @@ function checkOpen() {
 function compareCards() {
 	if (openCards[0].querySelector('i').className === openCards[1].querySelector('i').className) {
 		console.log('match')
-	// 	lockOpen();
+		lockOpen();
 	} else {
 		setTimeout(() => {
 			hideAndRemove();
@@ -83,6 +83,13 @@ function compareCards() {
 	// console.log(openCards[0].querySelector('i').className);
 	// console.log(openCards[1].querySelector('i').className);
 } 
+
+function lockOpen() {
+	openCards.forEach(card => {
+		card.classList.toggle('match');
+	})
+	openCards = [];
+}
 
 function hideAndRemove() {
 	openCards.forEach(card => {
