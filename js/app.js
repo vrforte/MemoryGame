@@ -49,7 +49,7 @@ cards.forEach(card => {
  	});
 });
 
-function showCard(card) {
+function toggleCard(card) {
 	card.classList.toggle('open');
  	card.classList.toggle('show');
  	console.log("card");
@@ -57,7 +57,7 @@ function showCard(card) {
 
 function trackOpenCards(card) {
 	if (openCards.length < 2) {
-		showCard(card);
+		toggleCard(card);
 		openCards.push(card);
 		checkOpen();
 	}	
