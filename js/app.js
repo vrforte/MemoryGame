@@ -74,10 +74,39 @@ function compareCards() {
 		console.log('match')
 	// 	lockOpen();
 	} else {
+		setTimeout(() => {
+			hideAndRemove();
+		}, 500);
 		console.log('nope')
 	// 	removeAndHide();
 	}
-	console.log(openCards[0].querySelector('i').className);
-	console.log(openCards[1].querySelector('i').className);
+	// console.log(openCards[0].querySelector('i').className);
+	// console.log(openCards[1].querySelector('i').className);
 } 
+
+function hideAndRemove() {
+	openCards.forEach(card => {
+			toggleCard(card);
+		})
+		openCards = [];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
