@@ -1,6 +1,7 @@
-/*
- * Create a list that holds all of your cards
- */
+
+// Create a list that holds all of your cards
+const cards = [...document.getElementsByClassName('card')];
+ 
 
 
 /*
@@ -39,12 +40,25 @@ function shuffle(array) {
  */
 
 
-const cards = [...document.getElementsByClassName('card')]
+let openCards = [];
  
 cards.forEach(card => {
  	card.addEventListener('click', () => {
- 		card.classList.toggle('open');
- 		card.classList.toggle('show');
- 		console.log("card");
+ 		// showCard(card);
+ 		trackOpenCards(card);	
  	});
 });
+
+function showCard(card) {
+	card.classList.toggle('open');
+ 	card.classList.toggle('show');
+ 	console.log("card");
+}
+
+function trackOpenCards(card) {
+	if (openCards.length < 2) {
+		showCard(card);
+		openCards.push(card);
+	}	
+}
+
