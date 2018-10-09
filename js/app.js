@@ -59,6 +59,25 @@ function trackOpenCards(card) {
 	if (openCards.length < 2) {
 		showCard(card);
 		openCards.push(card);
+		checkOpen();
 	}	
 }
+
+function checkOpen() {
+		if (openCards.length === 2) {
+			compareCards();
+		};
+	}
+
+function compareCards() {
+	if (openCards[0].querySelector('i').className === openCards[1].querySelector('i').className) {
+		console.log('match')
+	// 	lockOpen();
+	} else {
+		console.log('nope')
+	// 	removeAndHide();
+	}
+	console.log(openCards[0].querySelector('i').className);
+	console.log(openCards[1].querySelector('i').className);
+} 
 
