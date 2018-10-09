@@ -56,7 +56,7 @@ function toggleCard(card) {
 }
 
 function trackOpenCards(card) {
-	if (openCards.length < 2) {
+	if (openCards.length < 2 && !openCards.includes(card) && !card.classList.contains('match')) {
 		toggleCard(card);
 		openCards.push(card);
 		checkOpen();
