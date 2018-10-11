@@ -2,10 +2,17 @@
 // Create a list that holds all of your cards
 const cards = [...document.getElementsByClassName('card')];
 
-let openCards;
+let openCards = [];
+
+// save moves counter html to variable
+const counter = document.querySelector('.moves');
+let moves = 0;
 
 let timerOn;
 let totalTime = 0;
+let time = document.querySelector('.timer');
+
+let stars = document.querySelector('.stars');
 
 startGame();
 /*
@@ -45,6 +52,9 @@ function shuffle(array) {
 function startGame() {
 	timerOn = false;
 	totalTime = 0;
+	moves = 0;
+	counter.innerHTML = 0;
+	time.innerHTML = `0:00`
 	shuffle(cards);
 	console.log(cards);
 
@@ -58,8 +68,14 @@ let restartButton = document.querySelector('.fa-repeat');
 
 restartButton.addEventListener('click', () => {
 	console.log('click');
+	restartGame();
+	
+})
+
+function restartGame() {
 	stopTimer();
 	startGame();
+	replaceStar();
 	for(card of cards)
 		if (card.classList.contains('match')) {
 			card.classList.toggle('match');
@@ -69,8 +85,7 @@ restartButton.addEventListener('click', () => {
 			card.classList.toggle('open');
 			card.classList.toggle('show');
 		};
-	time.innerHTML = `0:00`
-})
+}
 
 // function restart() {
 // 	startGame();
@@ -88,8 +103,7 @@ cards.forEach(card => {
  	card.addEventListener('click', () => {
  		// showCard(card);
  		trackOpenCards(card);
- 		addMove();
- 		if (!timerOn) {
+	 	if (!timerOn) {
  			runTimer();
  			timerOn = true;
  		}	
@@ -103,6 +117,9 @@ function toggleCard(card) {
 }
 
 function trackOpenCards(card) {
+	if (!openCards.includes(card)) {
+			addMove();
+		};
 	if (openCards.length < 2 && !openCards.includes(card) && !card.classList.contains('match')) {
 		toggleCard(card);
 		openCards.push(card);
@@ -145,15 +162,14 @@ function hideAndRemove() {
 		openCards = [];
 }
 
-// save moves counter html to variable
-const counter = document.querySelector('.moves');
+
 // start moves at 0
-let moves = 0;
 
 // functionality to increment moves counter by 1 
 function addMove() {
 	moves ++;
 	counter.innerHTML = moves;
+	checkMoves();
 }
 
 let timer;
@@ -164,8 +180,6 @@ function runTimer() {
 }
 
 
-
-let time = document.querySelector('.timer');
 
 function displayTime() {
 	totalTime ++;
@@ -178,9 +192,29 @@ function displayTime() {
 	time.innerHTML = `${minutes}:${seconds}`;
 }
 
+function checkMoves() {
+	if (moves === 32 || moves === 40) {
+		removeStar()
+	}
+}
 
 
+function removeStar() {
+	if (!stars.lastElementChild.firstElementChild.classList.contains('remove-star')) {
+		stars.lastElementChild.firstElementChild.classList.toggle('remove-star');
+	} else if (stars.lastElementChild.firstElementChild.classList.contains('remove-star')){
+		stars.firstElementChild.nextElementSibling.firstElementChild.classList.toggle('remove-star');
+	}
+}
 
+function replaceStar() {
+	if (stars.lastElementChild.firstElementChild.classList.contains('remove-star')) {
+		stars.lastElementChild.firstElementChild.classList.toggle('remove-star');
+	}; 
+	if (stars.firstElementChild.nextElementSibling.firstElementChild.classList.contains('remove-star')){
+		stars.firstElementChild.nextElementSibling.firstElementChild.classList.toggle('remove-star');
+	};
+}
 
 
 
