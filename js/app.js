@@ -2,7 +2,12 @@
 // Create a list that holds all of your cards
 const cards = [...document.getElementsByClassName('card')];
  
+shuffle(cards);
+console.log(cards);
 
+cards.forEach(card => {
+	document.querySelector('.deck').appendChild(card);
+});
 
 /*
  * Display the cards on the page
