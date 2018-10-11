@@ -1,14 +1,13 @@
 
 // Create a list that holds all of your cards
 const cards = [...document.getElementsByClassName('card')];
- 
-shuffle(cards);
-console.log(cards);
 
-cards.forEach(card => {
-	document.querySelector('.deck').appendChild(card);
-});
+let openCards;
 
+let timerOn;
+let totalTime = 0;
+
+startGame();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -43,9 +42,47 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+function startGame() {
+	timerOn = false;
+	totalTime = 0;
+	shuffle(cards);
+	console.log(cards);
 
+	cards.forEach(card => {
+		document.querySelector('.deck').appendChild(card);
+	});
+	openCards = [];
+}
 
-let openCards = [];
+let restartButton = document.querySelector('.fa-repeat');
+
+restartButton.addEventListener('click', () => {
+	console.log('click');
+	stopTimer();
+	startGame();
+	for(card of cards)
+		if (card.classList.contains('match')) {
+			card.classList.toggle('match');
+			card.classList.toggle('open');
+			card.classList.toggle('show');
+		} else if (card.classList.contains('open')) {
+			card.classList.toggle('open');
+			card.classList.toggle('show');
+		};
+	time.innerHTML = `0:00`
+})
+
+// function restart() {
+// 	startGame();
+// 	clearInterval(runTimer);
+// 	stopTimer();
+// 	totalTime = 0;
+// 	// timerOn = false;
+// }
+
+function stopTimer() {
+	clearInterval(timer);
+}
  
 cards.forEach(card => {
  	card.addEventListener('click', () => {
@@ -119,13 +156,16 @@ function addMove() {
 	counter.innerHTML = moves;
 }
 
+let timer;
+
 function runTimer() {
-	let timer = setInterval(displayTime, 1000);
+	timer = window.setInterval(displayTime, 1000)
+	// let timer = window.setInterval(displayTime, 1000);
 }
 
-let timerOn = false;
 
-let totalTime = 0
+
+let time = document.querySelector('.timer');
 
 function displayTime() {
 	totalTime ++;
@@ -135,7 +175,7 @@ function displayTime() {
 			seconds = '0' + Math.floor(totalTime - (minutes * 60));
 		}
 	// console.log(totalTime);
-	document.querySelector('.timer').innerHTML = `${minutes}:${seconds}`;
+	time.innerHTML = `${minutes}:${seconds}`;
 }
 
 
