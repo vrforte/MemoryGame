@@ -50,7 +50,8 @@ let openCards = [];
 cards.forEach(card => {
  	card.addEventListener('click', () => {
  		// showCard(card);
- 		trackOpenCards(card);	
+ 		trackOpenCards(card);
+ 		addMove();	
  	});
 });
 
@@ -103,7 +104,16 @@ function hideAndRemove() {
 		openCards = [];
 }
 
+// save moves counter html to variable
+const counter = document.querySelector('.moves');
+// start moves at 0
+let moves = 0;
 
+// functionality to increment moves counter by 1 
+function addMove() {
+	moves ++;
+	counter.innerHTML = moves;
+}
 
 
 
