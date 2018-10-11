@@ -51,7 +51,11 @@ cards.forEach(card => {
  	card.addEventListener('click', () => {
  		// showCard(card);
  		trackOpenCards(card);
- 		addMove();	
+ 		addMove();
+ 		if (!timerOn) {
+ 			runTimer();
+ 			timerOn = true;
+ 		}	
  	});
 });
 
@@ -115,7 +119,24 @@ function addMove() {
 	counter.innerHTML = moves;
 }
 
+function runTimer() {
+	let timer = setInterval(displayTime, 1000);
+}
 
+let timerOn = false;
+
+let totalTime = 0
+
+function displayTime() {
+	totalTime ++;
+	let minutes = Math.floor(totalTime/60);
+	let seconds = Math.floor(totalTime - (minutes * 60));
+		if (seconds < 10) {
+			seconds = '0' + Math.floor(totalTime - (minutes * 60));
+		}
+	// console.log(totalTime);
+	document.querySelector('.timer').innerHTML = `${minutes}:${seconds}`;
+}
 
 
 
