@@ -111,7 +111,11 @@ h1 {
     float: right;
     /*display: inline-block;*/
     cursor: pointer;
-    margin-left: 50%;
+    /*margin-left: 50%;*/
+}
+
+.fa-repeat {
+    margin-right: 15px;
 }
 
 .score-panel .timer {
@@ -128,3 +132,4 @@ h1 {
                  gray .5px -.5px,
                  gray -.5px -.5px;
 }
+

@@ -72,6 +72,31 @@ restartButton.addEventListener('click', () => {
 	
 })
 
+
+let pauseButton = document.querySelector('.fa-pause');
+
+pauseButton.addEventListener('click', () => {
+	console.log('click');
+	checkPauseStatus();	
+})
+
+const iconCurrent = document.querySelector('.pause');
+
+function checkPauseStatus() {
+	if (iconCurrent.classList.contains('fa-pause')) {
+		stopTimer();
+		timerOn = false;
+		iconCurrent.classList.toggle('fa-pause');
+		iconCurrent.classList.toggle('fa-play');
+	} 
+	else if (iconCurrent.classList.contains('fa-play')) {
+		runTimer();
+		timerOn = true;
+		iconCurrent.classList.toggle('fa-pause');
+		iconCurrent.classList.toggle('fa-play');
+	} 
+}
+
 function restartGame() {
 	stopTimer();
 	startGame();
@@ -106,7 +131,12 @@ cards.forEach(card => {
 	 	if (!timerOn) {
  			runTimer();
  			timerOn = true;
- 		}	
+ 		}
+ 		// checks that the pause button is off
+ 		if (iconCurrent.classList.contains('fa-play')) {
+			iconCurrent.classList.toggle('fa-pause');
+			iconCurrent.classList.toggle('fa-play');
+		} 	
  	});
 });
 
