@@ -147,7 +147,7 @@ function toggleCard(card) {
 }
 
 function trackOpenCards(card) {
-	if (!openCards.includes(card)) {
+	if (!openCards.includes(card) && !card.classList.contains('match')) {
 			addMove();
 		};
 	if (openCards.length < 2 && !openCards.includes(card) && !card.classList.contains('match')) {
