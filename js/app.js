@@ -7,11 +7,12 @@ let openCards = [];
 // save moves counter html to variable
 const counter = document.querySelector('.moves');
 let moves = 0;
-
+let finalMove = 0;
+let matchedCards = 0;
 let timerOn;
 let totalTime = 0;
 let time = document.querySelector('.timer');
-
+let starsNum;
 let stars = document.querySelector('.stars');
 
 startGame();
@@ -53,6 +54,9 @@ function startGame() {
 	timerOn = false;
 	totalTime = 0;
 	moves = 0;
+	finalMove = 0;
+	matchedCards = 0;
+	starsNum = 3;
 	counter.innerHTML = 0;
 	time.innerHTML = `0:00`
 	shuffle(cards);
@@ -77,7 +81,9 @@ let pauseButton = document.querySelector('.fa-pause');
 
 pauseButton.addEventListener('click', () => {
 	console.log('click');
-	checkPauseStatus();	
+	if (matchedCards !== 8) {
+		checkPauseStatus();			
+	}
 })
 
 const iconCurrent = document.querySelector('.pause');
@@ -101,6 +107,7 @@ function restartGame() {
 	stopTimer();
 	startGame();
 	replaceStar();
+	restorePause();
 	for(card of cards)
 		if (card.classList.contains('match')) {
 			card.classList.toggle('match');
@@ -128,17 +135,37 @@ cards.forEach(card => {
  	card.addEventListener('click', () => {
  		// showCard(card);
  		trackOpenCards(card);
-	 	if (!timerOn) {
- 			runTimer();
- 			timerOn = true;
+ 		if (matchedCards !== 8 && moves !== 0) {
+ 			if (!timerOn) {
+ 				runTimer();
+ 				timerOn = true;
+ 			}
  		}
+	 	
  		// checks that the pause button is off
- 		if (iconCurrent.classList.contains('fa-play')) {
-			iconCurrent.classList.toggle('fa-pause');
-			iconCurrent.classList.toggle('fa-play');
-		} 	
+ 		restorePause();
+ 		
+		if (matchedCards === 8 && finalMove !== 1) {
+			finalMove ++
+			modal();
+
+		} 
  	});
 });
+
+function restorePause() {
+	if (iconCurrent.classList.contains('fa-play')) {
+		iconCurrent.classList.toggle('fa-pause');
+		iconCurrent.classList.toggle('fa-play');
+	}
+}
+
+function modal() {
+	stopTimer();
+	$('#you-win').modal('toggle');
+	document.querySelector('.modal-body').innerHTML = `<em>YOUR STATS<em><br><br> Moves: ${moves} <br>
+	Time: ${minutes}:${seconds} <br> Stars: ${starsNum}`
+}
 
 function toggleCard(card) {
 	card.classList.toggle('open');
@@ -163,10 +190,14 @@ function checkOpen() {
 		};
 	}
 
+
 function compareCards() {
 	if (openCards[0].querySelector('i').className === openCards[1].querySelector('i').className) {
 		console.log('match')
+		matchedCards ++;
 		lockOpen();
+		console.log(matchedCards);
+		
 	} else {
 		setTimeout(() => {
 			hideAndRemove();
@@ -205,16 +236,16 @@ function addMove() {
 let timer;
 
 function runTimer() {
-	timer = window.setInterval(displayTime, 1000)
-	// let timer = window.setInterval(displayTime, 1000);
+		timer = window.setInterval(displayTime, 1000);
 }
 
-
+let minutes;
+let seconds;
 
 function displayTime() {
 	totalTime ++;
-	let minutes = Math.floor(totalTime/60);
-	let seconds = Math.floor(totalTime - (minutes * 60));
+	minutes = Math.floor(totalTime/60);
+	seconds = Math.floor(totalTime - (minutes * 60));
 		if (seconds < 10) {
 			seconds = '0' + Math.floor(totalTime - (minutes * 60));
 		}
@@ -224,16 +255,18 @@ function displayTime() {
 
 function checkMoves() {
 	if (moves === 32 || moves === 40) {
-		removeStar()
+		removeStar();
+
 	}
 }
-
 
 function removeStar() {
 	if (!stars.lastElementChild.firstElementChild.classList.contains('remove-star')) {
 		stars.lastElementChild.firstElementChild.classList.toggle('remove-star');
+		starsNum --;
 	} else if (stars.lastElementChild.firstElementChild.classList.contains('remove-star')){
 		stars.firstElementChild.nextElementSibling.firstElementChild.classList.toggle('remove-star');
+		starsNum --;
 	}
 }
 
@@ -248,7 +281,12 @@ function replaceStar() {
 
 
 
+let playAgain = document.querySelector('.play-again');
 
+playAgain.addEventListener('click', () => {
+	console.log('click');
+	restartGame();	
+})
 
 
 
