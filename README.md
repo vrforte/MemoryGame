@@ -10,15 +10,15 @@ To begin this project, Udacity provided me with the html, css styling, backgroun
 
 * Use javaScript to manipulate the DOM by storing html elments in variables in order access and alter them. 
 * Construct functions and write code that enable the following game play operations:
-	-cards appear face down with images hidden
-	-game only allows two cards to be opened at a time
-	-game compares opened cards: 
+	* cards appear face down with images hidden
+	* game only allows two cards to be opened at a time
+	* game compares opened cards: 
 		* if opened cards match, they remain open and change color
 		* if they do not match, they are quickly hidden once again 
-	-game keeps track of and displays passing time
-	-game keeps track of and displays amount of player's valid moves
-	-game reduces stars after player reaches a certain amount of valid moves
-	-game includes a restart button that resets game with a newly shuffled deck of cards 
+	* game keeps track of and displays passing time
+	* game keeps track of and displays amount of player's valid moves
+	* game reduces stars after player reaches a certain amount of valid moves
+	* game includes a restart button that resets game with a newly shuffled deck of cards 
 * Implement a pop up modal when player wins, notifying the player of his/her game stats. Modal includes a Play Again button to start a new game.
 
 There are comments throughout the code detailing its purpose.
