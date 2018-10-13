@@ -243,7 +243,7 @@ const pauseButton = document.querySelector('.pause');
 // add click event listener to pause button
 pauseButton.addEventListener('click', () => {
 	// check if game is not already over/won 
-	if (matchedCards !== 8) {
+	if (matchedCards !== 8 && moves !== 0) {
 		// run function to implement pause functionality
 		checkPauseStatus();			
 	}
